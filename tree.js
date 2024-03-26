@@ -17,8 +17,6 @@ class responsiveTree
          line(0, 0, 0, -30); // draws a straight line (the trunk of the tree) wth a height of 30 pixles from the translated origin 
          translate(0, -30); // translates the point of origin 30 pixels upwards to prepare for drawing branches from the top of the tree trunk
          this.branch(30); // initialises the interactive/recursive drawing of branches that are impaced by the users mouseX position 
-         console.log(angleDegrees);
-         console.log(mouseX);
     }
     
     branch(h) { // defines the branch function which recursively draws branches for the tree using the users mouseX position
