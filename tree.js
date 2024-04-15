@@ -7,7 +7,7 @@ class responsiveTree
     }
 
     draw() {
-         stroke(114, 95, 75); // sets the stroke colour to brown for drawing the tree trunk
+         stroke(161, 102, 47); // sets the stroke colour to brown for drawing the tree trunk
          let angleDegrees = map(mouseX, 0, 800, 15, 90); // calculates the angle in degrees based on the mouseX position, which wil be used to add interactivity to the branches later, it also maps the mouseX movement to be constrained to within the canvas and creates a range for degrees movement between 15 and 90 degrees
          if (angleDegrees > 90) { // if statement to limit the trees movement to 90 degrees so it cannot go further, keeping the tree from deforming.
             angleDegrees = 90; // sets a limit of 90 degrees to the tree movement
@@ -17,7 +17,7 @@ class responsiveTree
          line(0, 0, 0, -30); // draws a straight line (the trunk of the tree) wth a height of 30 pixles from the translated origin 
          translate(0, -30); // translates the point of origin 30 pixels upwards to prepare for drawing branches from the top of the tree trunk
          this.branch(30); // initialises the interactive/recursive drawing of branches that are impaced by the users mouseX position 
-    }
+    }   
     
     branch(h) { // defines the branch function which recursively draws branches for the tree using the users mouseX position
         h*= 0.66; // reduces the length of each branch by a third each time

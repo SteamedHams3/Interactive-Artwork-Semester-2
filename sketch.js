@@ -72,7 +72,35 @@ function draw() {
   break;
 
   case 2:
-    background(0);
+    upperSky = color(19, 24, 98);
+    lowerSky = color(46, 68, 130);
+      for(let y = 0 ; y < 400; y++) {
+          range = map(y, 0, 400, 0, 1);
+          let sky = lerpColor(upperSky, lowerSky, range)
+          stroke(sky);
+          line(0, y, width, y);
+      }
+    
+      
+ frameRate(30);
+ noStroke();
+ fill(5, 71, 42);
+ rect(0, 400, width, 200);
+
+ if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
+  myRain.show(); 
+  myRain.draw();
+  myRain.update();
+}
+
+myCloud.draw();
+myTree.draw();
+fill(246, 241, 213);
+noStroke();
+ellipse(-300, -280, 100, 100);
+
+
+ 
 
 
   break;
