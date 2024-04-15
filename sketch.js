@@ -4,6 +4,16 @@ let myCloud = new whiteCloud(600, 100)
 let myTree = new responsiveTree();
 let myRain;
 let mouseIsClicked = 0;
+let currentState = 1;
+
+function keyPressed() {
+  if (key === "1") {
+    currentState = 1;
+  } else if(key === "2") {
+    currentState = 2;
+  }
+}
+
 
 
 function setup() {
@@ -16,6 +26,10 @@ function draw() {
  clear();
 
  background(220);
+    
+      switch (currentState) {
+        case 1: 
+      
 
     upperSky = color(135, 206, 235);
     lowerSky = color(140, 190, 214);
@@ -25,7 +39,7 @@ function draw() {
           stroke(sky);
           line(0, y, width, y);
       }
-
+    
       
  frameRate(30);
  noStroke();
@@ -54,9 +68,19 @@ function draw() {
  
   myCloud.draw();
   myTree.draw();
+  
+  break;
+
+  case 2:
+    background(0);
+
+
+  break;
+  
 
 
 
+}
 }
 
 function mouseClicked() {
