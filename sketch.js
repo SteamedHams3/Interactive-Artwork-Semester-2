@@ -24,21 +24,10 @@ function preload() {
 
 
 
-function canvasPressed(){
-  if (!mySound.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
-    mySound.loop();
-  }
-}
 
-function canvasPressed2(){
-  if (!mySound2.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
-    mySound2.loop();
-  }
-}
 
 function setup() {
-  let cnv = createCanvas(800, 600);
-  cnv.mousePressed(canvasPressed);
+  createCanvas(800, 600);
   angleMode(DEGREES);
   myRain = new Rain();
 }
@@ -53,6 +42,11 @@ function draw() {
     
       switch (currentState) {
         case 1: 
+
+      mySound2.stop();
+      if (!mySound.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
+        mySound.loop();
+      }
 
         
     
@@ -100,8 +94,10 @@ function draw() {
 
   case 2:
     mySound.stop();
-    let cnv2 = createCanvas(800, 600);
-    cnv2.mousePressed(canvasPressed2);
+    if (!mySound2.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
+      mySound2.loop();
+    }
+    
     upperSky = color(19, 24, 98);
     lowerSky = color(46, 68, 130);
       for(let y = 0 ; y < 400; y++) {
