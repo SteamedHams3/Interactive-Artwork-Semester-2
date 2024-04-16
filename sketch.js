@@ -16,21 +16,21 @@ function keyPressed() {
 
 function preload() {
   soundFormats ('wav', 'mp3')
-  mySound = loadSound('test.wav')
+  mySound = loadSound('nature_ambient_daytime_state1')
 }
 
+function canvasHover(){
+  mySound.loop();
+}
 
 
 function setup() {
   let cnv = createCanvas(800, 600);
-  cnv.mousePressed(canvasPressed);
+  cnv.mouseOver(canvasHover);
   angleMode(DEGREES);
   myRain = new Rain();
 }
 
-function canvasPressed(){
-  mySound.play();
-}
 function draw() {
  clear();
 
@@ -81,6 +81,7 @@ function draw() {
   break;
 
   case 2:
+    mySound.stop();
     upperSky = color(19, 24, 98);
     lowerSky = color(46, 68, 130);
       for(let y = 0 ; y < 400; y++) {
