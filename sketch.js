@@ -14,14 +14,23 @@ function keyPressed() {
   }
 }
 
+function preload() {
+  soundFormats ('wav', 'mp3')
+  mySound = loadSound('test.wav')
+}
+
 
 
 function setup() {
-  createCanvas(800, 600);
+  let cnv = createCanvas(800, 600);
+  cnv.mousePressed(canvasPressed);
   angleMode(DEGREES);
   myRain = new Rain();
 }
 
+function canvasPressed(){
+  mySound.play();
+}
 function draw() {
  clear();
 
