@@ -43,6 +43,7 @@ function draw() {
       switch (currentState) {
         case 1: 
 
+
       mySound2.stop();
       if (!mySound.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
         mySound.loop();
