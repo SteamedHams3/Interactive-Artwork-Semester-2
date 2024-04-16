@@ -4,7 +4,7 @@ let myCloud = new whiteCloud(600, 100)
 let myTree = new responsiveTree();
 let myRain;
 let mouseIsClicked = 0;
-let currentState = 1;
+let currentState = 0;
 let mySound;
 let mySound2;
 
@@ -13,6 +13,9 @@ function keyPressed() {
     currentState = 1;
   } else if(key === "2") {
     currentState = 2;
+  }
+    else if(key === "0") {
+      currentState = 0;
   }
 }
 
@@ -39,8 +42,19 @@ function draw() {
  clear();
 
  background(220);
+
     
       switch (currentState) {
+        case 0:
+          textSize(30);
+          textAlign(CENTER);
+          fill(0);
+          noStroke();
+          text('Press 1 and 2 to switch between states', 400, 300);
+          mySound.stop();
+          mySound2.stop();
+          break;
+        
         case 1: 
 
 
@@ -89,7 +103,6 @@ function draw() {
  
   myCloud.draw();
   myTree.draw();
-  mySound2
   
   break;
 
