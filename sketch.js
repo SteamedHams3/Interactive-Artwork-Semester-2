@@ -5,6 +5,8 @@ let myTree = new responsiveTree();
 let myRain;
 let mouseIsClicked = 0;
 let currentState = 1;
+let mySound;
+let mySound2;
 
 function keyPressed() {
   if (key === "1") {
@@ -15,21 +17,34 @@ function keyPressed() {
 }
 
 function preload() {
-  soundFormats ('wav', 'mp3')
-  mySound = loadSound('nature_ambient_daytime_state1')
+  soundFormats('wav', 'mp3');
+  mySound = loadSound('nature_ambient_daytime_state1');
+  mySound2 = loadSound('nature_ambient_night_state2');
 }
 
-function canvasHover(){
-  mySound.loop();
+
+
+function canvasPressed(){
+  if (!mySound.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
+    mySound.loop();
+  }
 }
 
+function canvasPressed2(){
+  if (!mySound2.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
+    mySound2.loop();
+  }
+}
 
 function setup() {
   let cnv = createCanvas(800, 600);
-  cnv.mouseOver(canvasHover);
+  cnv.mousePressed(canvasPressed);
   angleMode(DEGREES);
   myRain = new Rain();
 }
+
+
+
 
 function draw() {
  clear();
@@ -38,7 +53,9 @@ function draw() {
     
       switch (currentState) {
         case 1: 
-      
+
+        
+    
 
     upperSky = color(135, 206, 235);
     lowerSky = color(140, 190, 214);
@@ -77,11 +94,14 @@ function draw() {
  
   myCloud.draw();
   myTree.draw();
+  mySound2
   
   break;
 
   case 2:
     mySound.stop();
+    let cnv2 = createCanvas(800, 600);
+    cnv2.mousePressed(canvasPressed2);
     upperSky = color(19, 24, 98);
     lowerSky = color(46, 68, 130);
       for(let y = 0 ; y < 400; y++) {
@@ -120,6 +140,8 @@ ellipse(-300, -280, 100, 100);
 
 }
 }
+
+
 
 function mouseClicked() {
   if (mouseIsClicked === 0) {
