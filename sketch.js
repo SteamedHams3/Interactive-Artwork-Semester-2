@@ -7,7 +7,7 @@ let mouseIsClicked = 0;
 let currentState = 0;
 let mySound;
 let mySound2;
-
+let star;
 function keyPressed() {
   if (key === "1") {
     currentState = 1;
@@ -33,6 +33,7 @@ function setup() {
   createCanvas(800, 600);
   angleMode(DEGREES);
   myRain = new Rain();
+  star = new Star();
 }
 
 
@@ -128,13 +129,20 @@ function draw() {
     noStroke();
   
     ellipse(100, 90, 100, 100);
+    
+    star.draw();
+
 
     if (mouseIsClicked == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
       fill(255, 255, 0);
       noStroke();
       ellipse(100, 90, 100, 100);
     }
-  
+   
+    fill(255,205,165);
+   
+   
+   
     frameRate(30);
     noStroke();
     fill(5, 71, 42);
