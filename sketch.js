@@ -8,6 +8,10 @@ let currentState = 0;
 let mySound;
 let mySound2;
 let star;
+let r;
+let g;
+let b;
+
 function keyPressed() {
   if (key === "1") {
     currentState = 1;
@@ -34,6 +38,9 @@ function setup() {
   angleMode(DEGREES);
   myRain = new Rain();
   star = new Star();
+  r = random(255);
+  g = random(255);
+  b = random(255);
 }
 
 
@@ -131,6 +138,14 @@ function draw() {
     ellipse(100, 90, 100, 100);
     
     star.draw();
+
+    
+    if (mouseIsClicked == 1 && mouseX > 350 && mouseX < 450 && mouseY > 40 && mouseY < 140) {
+     fill(r, g, b);
+     star.draw();
+     console.log("if statement working");
+    }
+
 
 
     if (mouseIsClicked == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
