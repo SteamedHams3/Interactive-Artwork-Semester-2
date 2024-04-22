@@ -7,6 +7,8 @@ let mouseIsClicked = 0;
 let currentState = 0;
 let mySound;
 let mySound2;
+let myRainSound;
+let test;
 let star;
 let r;
 let g;
@@ -27,6 +29,9 @@ function preload() {
   soundFormats('wav', 'mp3');
   mySound = loadSound('nature_ambient_daytime_state1');
   mySound2 = loadSound('nature_ambient_night_state2');
+  myRainSound = loadSound('Rain_Audio');
+  test = loadSound('test')
+
 }
 
 
@@ -107,7 +112,15 @@ function draw() {
     myRain.show(); 
     myRain.draw();
     myRain.update();
+    if (!myRainSound.isPlaying()){ 
+      myRainSound.loop();
+    }
+  } else { 
+    myRainSound.stop();
   }
+    
+  
+  
  
   myCloud.draw();
   myTree.draw();
@@ -165,9 +178,15 @@ function draw() {
   
     if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
       myRain.show(); 
-      myRain.draw();
-      myRain.update();
+    myRain.draw();
+    myRain.update();
+    if (!myRainSound.isPlaying()){ 
+      myRainSound.loop();
     }
+  } else { 
+    myRainSound.stop();
+  }
+    
   
     myCloud.draw();
     myTree.draw();
