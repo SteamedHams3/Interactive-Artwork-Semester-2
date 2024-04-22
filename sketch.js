@@ -8,6 +8,7 @@ let currentState = 0;
 let mySound;
 let mySound2;
 let myRainSound;
+let myMoonSound;
 let test;
 let star;
 let r;
@@ -30,7 +31,8 @@ function preload() {
   mySound = loadSound('nature_ambient_daytime_state1');
   mySound2 = loadSound('nature_ambient_night_state2');
   myRainSound = loadSound('Rain_Audio');
-  test = loadSound('test')
+  myMoonSound = loadSound('Moon_Sound')
+ 
 
 }
 
