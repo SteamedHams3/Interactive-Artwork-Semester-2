@@ -55,194 +55,147 @@ function preload() { // calls p5 function preload to ensure that all soundfiles 
   mySunSound = loadSound('Sun_Sound'); // uses loadSound to load sun sound effect
 }
 
-function setup() {
-  createCanvas(800, 600);
-  angleMode(DEGREES);
-  myRain = new Rain();
-  star = new Star();
-  r = random(255);
-  g = random(255);
-  b = random(255);
+function setup() { // calls setup that runs once when the program is first run
+  createCanvas(800, 600); // creates a canvas with a width of 800 pixels and a height of 600 pixels
+  angleMode(DEGREES); // sets angles to degrees instead of radians
+  myRain = new Rain(); // initialises rain class 
+  star = new Star(); // initialises star class
+  r = random(255); // initialises random red value and sets it to be between 0 and 255
+  g = random(255); // initialises random red value and sets it to be between 0 and 255
+  b = random(255); // initialises random red value and sets it to be between 0 and 255
 }
 
-function draw() {
- clear();
- background(220);
+function draw() { // calls draw that runs 60 times a second
+  clear(); // clears all pixels on the canvas
+  background(220); // sets background to 220 a light grey which will be used for state 0 (the menu screen)
+  frameRate(30); // sets frame rate to 30 frames a second instead of the default 60
 
-    
-      switch (currentState) {
-        case 0:
-          textSize(30);
-          textAlign(CENTER);
-          fill(0);
-          noStroke();
-          text('Press 1 and 2 to switch between states', 400, 300);
-          mySound.stop();
-          mySound2.stop();
-          break;
-        
-        case 1: 
+  switch (currentState) {  // switch case statement to switch between states
+    case 0: // if 0 is pressed then it will run this code, making the state 0 (menu screen)
+      textSize(30); // sets text size to 30
+      textAlign(CENTER); // aligns text at the center of the canvas
+      fill(0); // sets the text colour to black
+      noStroke(); // removes stroke
+      text('Press 1 and 2 to switch between states', 400, 300); // draws text with the x coordinate of 400 and y coordinate of 300 
+      mySound.stop(); // stops ambient day sound from playing on the menu screen
+      mySound2.stop(); // stops ambient night sound from playing on the menu screen
+      break; // exits the code executed in case 0 if either 1 or 2 are pressed
 
-
-      mySound2.stop();
-      myStarSound.stop();
-      myMoonSound.stop();
-      if (!mySound.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
-        mySound.loop();
+    case 1: // if 1 is pressed then it will run this code, making the state 1 (day landscape)
+      mySound2.stop(); // stops ambient night sound from playing on the day landscape
+      myStarSound.stop(); // stops star sound from playing on the day landscape
+      myMoonSound.stop(); // stops moon sound from playing on the day landscape
+      if (!mySound.isPlaying()) { // if statement that plays loop of ambient day sound for state 1 as the exclamation mark makes it negative and loops mySound
+        mySound.loop(); // loops ambient day sound once it is finished playing 
       }
 
-        
-    
+      upperSky = color(135, 206, 235); // gives upperSKy a light blue rgb value
+      lowerSky = color(140, 190, 214); // gives lowerSky a bluey-grey rgb value
+      for (let y = 0; y < 400; y++) { // for loop for each line of canvas height between 0 and 400
+        let range = map(y, 0, 400, 0, 1); // maps the y value between the scale of 0 and 1
+        let sky = lerpColor(upperSky, lowerSky, range); // gradually blends upperSky and lowerSky colours together using lerpColor function
+        stroke(sky); // sets stroke colour to the new blended colour which gradually transitions from light blue to a bluey-grey
+        line(0, y, width, y); // draws a horizontal line from the left to the right of the canvas at the current y value
+      }
 
-    upperSky = color(135, 206, 235);
-    lowerSky = color(140, 190, 214);
-      for(let y = 0 ; y < 400; y++) {
-          range = map(y, 0, 400, 0, 1);
-          let sky = lerpColor(upperSky, lowerSky, range)
-          stroke(sky);
-          line(0, y, width, y);
+      noStroke(); // removes stroke 
+      fill(124, 252, 0); // sets fill to a light green
+      rect(0, 400, width, 200); // draws a rectangle with the width of the canvas and a height of 200
+
+      stroke(245, 187, 87); // sets stroke to orange
+      fill(244, 128, 55); // sets fill to dark organge
+      ellipse(100, 90, 100, 100); // draws the sun with an x coordinate of 100 and a y coordinate of 90 with a width and height of 100
+      if (mouseIsPressed == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) { // if statement that checks if the mouse has been pressed over the area of which the sun is drawn and changes the colour of the sun if the mouse is pressed
+        fill(255, 150, 0); // if the mouse is pressed over sun, it sets the fill to a brighter orange
+        ellipse(100, 90, 100, 100); // if the mouse is pressed over sun, it draws an ellipse at the same position of the sun, with the brighter orange fill, creating the visual effect of a colour change
+        if (!mySunSound.isPlaying()) { // if the mouse is pressed over sun, new if statement that checks if the sun sound is not playing and plays the sound if it isn't, this is as the exclamation mark makes the code negative
+          mySunSound.play(); // plays the sun sound if the mouse is pressed over the sun
+        }
+      }
+
+      push(); // saves the current drawing state
+      translate(100, 90); // moves the origin to the centre of the ellipse (sun) so the lines can be rotated around it
+      for (let i = 0; i < 8; i++) { // for loop to draw 8 lines each rotated by 45 degrees around the ellipse (sun)
+        strokeWeight(3); // sets strokeWeight to 3
+        rotate(45); // rotates each line by 45 degrees
+        line(0, -80, 0, -60); // draws the first line at this position using the translated coordinates established by translate (100, 90);
+      }
+      pop(); // restores the previous drawing state
+
+      myRainSound.setVolume(rainVolume); // calls the previously established rainVolume of 0.3 to reduce the volume of the rain sound
+      if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) { // if statement that checks if the mouse is clicked over the area of which the cloud is drawn and runs rain animation if it is 
+        myRain.show(); // calls show from rain class which displays each raindrop on the canvas (as a line)
+        myRain.draw(); // calls draw from rain class which creates new raindrops and draws them on the canvas
+        myRain.update(); // calls update from rain class which updates the position of each raindrop every frame
+        if (!myRainSound.isPlaying()) { // if the mouse is pressed over cloud, new if statement that checks if the rain sound is not playing and plays the sound if it isn't, this is as the exclamation mark makes the code negative
+          myRainSound.loop(); // loops the rain sound if the mouse is pressed over the sun
+        }
+      } else {
+        myRainSound.stop(); // else that stops the rain sound if the mouse is no longer clicked over the positon of which the cloud is drawn
       }
     
-      
- frameRate(30);
- noStroke();
- fill(124, 252, 0);
- rect(0, 400, width, 200);
 
- stroke(245, 187, 87);
- fill(244, 128, 55);
- ellipse(100, 90, 100, 100);
+      myCloud.draw(); // calls draw from whiteCloud class which draws a cloud towards the top right of the canvas
+      myTree.draw(); // calls draw from responsiveTree class which draws the recursive tree centered horizontally with an x coordinate of width/2 and a y coordinate of 400
 
- if (mouseIsPressed == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
-  fill(255, 150, 0);
-  ellipse(100, 90, 100, 100);
-  if(!mySunSound.isPlaying()) {
-    mySunSound.play();
+      break; // exits the code executed in case 1 if either 0 or 2 are pressed
+
+    case 2: // if 2 is pressed then it will run this code, making the state 2 (night landscape)
+      mySound.stop(); // stops ambient day sound from playing on the night landscape
+      mySunSound.stop(); // stops sun sound from playing on the night landscape
+      if (!mySound2.isPlaying()) { // if statement to play loop of ambient night sound for state 2 as the exclamation mark makes it negative and loops mySound 
+        mySound2.loop(); // loops ambient night sound once it is finished playing 
+      }
+
+      upperSky = color(19, 24, 98); // gives upperSky a dark blue rgb value
+      lowerSky = color(46, 68, 130); // gives lowerSky a darker blue rgb value
+      for (let y = 0; y < 400; y++) { // for loop for each line of canvas height between 0 and 400
+        let range = map(y, 0, 400, 0, 1); // maps the y value between the scale of 0 and 1
+        let sky = lerpColor(upperSky, lowerSky, range); // sets stroke colour to the new blended colour which gradually transitions from light blue to a bluey-grey
+        stroke(sky); // sets stroke colour to the new blended colour which gradually transitions from light blue to a bluey-grey
+        line(0, y, width, y); // draws a horizontal line from the left to the right of the canvas at the current y value
+      }
+
+      fill(246, 241, 213); // sets rgb to a white/beige colour
+      noStroke(); // removes stroke
+      ellipse(100, 90, 100, 100); // draws an ellipse (moon) with an x coordinate of 100 and a y coordinate of 90 with a width and height of 100
+
+      star.draw(); // calls draw from Star class which uses the p5 beginShape function to draw a star, drawing each vertex manually
+      if (mouseIsPressed == 1 && mouseX > 350 && mouseX < 450 && mouseY > 40 && mouseY < 140) { // if statement that checks if the mouse is pressed over where the star is drawn on the canvas and changes colour if it is
+        fill(r, g, b); // if mouse is pressed over star, the fill is changed to a random rgb value
+        star.draw(); // calls draw from Star class again, this time with the new random rgb fill
+        if (!myStarSound.isPlaying()) { // if the mouse is pressed over star, new if statement that checks if the star sound is not playing and plays the sound if it isn't, this is as the exclamation mark makes the code negative
+          myStarSound.play(); // plays the star sound if the mouse is pressed over the star
+        }
+      }
+
+      if (mouseIsPressed == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) { // if statement that checks if the mouse is pressed over where the moon is drawn on the canvas and changes colour if it is
+        fill(255, 255, 0); // if moon is pressed, changes fill to yellow rgb value
+        noStroke(); // if moon is pressed, removes stroke
+        ellipse(100, 90, 100, 100); // if moon is pressed, draws the moon with the new yellow rgb value 
+        if (!myMoonSound.isPlaying()) { // if the mouse is pressed over the moon, new if statement that checks if the moon sound is not playing and plays the sound if it isn't, this is as the exclamation mark makes the code negative
+          myMoonSound.play(); // plays the moon sound if the mouse is pressed over the moon
+        }
+      }
+
+      fill(5, 71, 42); // sets the fill to a dark green rgb value
+      noStroke(); // removes stroke
+      rect(0, 400, width, 200); // draws rectangle with the width of the anvas and a height of 200
+
+      myRainSound.setVolume(rainVolume); // calls the previously established rainVolume of 0.3 to reduce the volume of the rain sound
+      if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) { // if statement that checks if the mouse is clicked over the area of which the cloud is drawn and runs rain animation if it is 
+        myRain.show(); // calls show from rain class which displays each raindrop on the canvas (as a line)
+        myRain.draw(); // calls draw from rain class which creates new raindrops and draws them on the canvas
+        myRain.update(); // calls update from rain class which updates the position of each raindrop every frame
+        if (!myRainSound.isPlaying()) { // if the mouse is pressed over cloud, new if statement that checks if the rain sound is not playing and plays the sound if it isn't, this is as the exclamation mark makes the code negative
+          myRainSound.loop(); // loops the rain sound if the mouse is pressed over the sun
+        }
+      } else {
+        myRainSound.stop(); // else that stops the rain sound if the mouse is no longer clicked over the positon of which the cloud is drawn
+      }
+
+      myCloud.draw(); // calls draw from whiteCloud class which draws a cloud towards the top right of the canvas
+      myTree.draw(); // calls draw from responsiveTree class which draws the recursive tree centered horizontally with an x coordinate of width/2 and a y coordinate of 400
+      break; // exits the code executed in case 2 if either 0 or 1 are pressed
   }
-}1
- 
-
-    push(); // saves the current drawing state 
-    translate(100, 90); // moves the origin to the centre of the ellipse (sun) so the lines can be rotated around it 
-    for (let i = 0; i < 8; i++) { // for loop to draw 8 lines each rotated by 45 degrees around the ellipse (sun)
-      strokeWeight(3); // sets a stroke weight of 3 for the lines
-      rotate(45); // rotates each line by 45 degrees 
-      line(0, -80, 0, -60); // draws the first line at this position using the translated coordinates established by translate (100, 90)
-      }
-    pop(); // restores the previous drawing state
-
-   myRainSound.setVolume(rainVolume); // sets rain volume to 0.3 by calling the previously declared rainVolume function
-  if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
-    myRain.show(); 
-    myRain.draw();
-    myRain.update();
-    if (!myRainSound.isPlaying()){ 
-      myRainSound.loop();
-    }
-  } else { 
-    myRainSound.stop();
-  }
-    
-  
-  
- 
-  myCloud.draw();
-  myTree.draw();
-  
-  break;
-
-
-  
-
-
-  case 2:
-    mySound.stop();
-    mySunSound.stop();
-    if (!mySound2.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
-      mySound2.loop();
-    }
-  
-    upperSky = color(19, 24, 98);
-    lowerSky = color(46, 68, 130);
-    for(let y = 0 ; y < 400; y++) {
-      range = map(y, 0, 400, 0, 1);
-      let sky = lerpColor(upperSky, lowerSky, range)
-      stroke(sky);
-      line(0, y, width, y);
-    }
-    fill(246, 241, 213);
-    noStroke();
-  
-    ellipse(100, 90, 100, 100);
-    
-    star.draw();
-
-    
-    if (mouseIsPressed == 1 && mouseX > 350 && mouseX < 450 && mouseY > 40 && mouseY < 140) {
-     fill(r, g, b);
-     star.draw();
-     if (!myStarSound.isPlaying()){ 
-      myStarSound.play();
-    }
-  }
-    
-
-
-
-    if (mouseIsPressed == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
-      fill(255, 255, 0);
-      noStroke();
-      ellipse(100, 90, 100, 100);
-      if (!myMoonSound.isPlaying()){ 
-        myMoonSound.play();
-      }
-    }
-    
-    
-   
-    fill(255,205,165);
-   
-   
-   
-    frameRate(30);
-    noStroke();
-    fill(5, 71, 42);
-    rect(0, 400, width, 200);
-    
-    myRainSound.setVolume(rainVolume);
-    if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
-      myRain.show(); 
-      myRain.draw();
-      myRain.update();
-      if (!myRainSound.isPlaying()){ 
-        myRainSound.loop();
-      }
-    } else { 
-      myRainSound.stop();
-    }
-
-  
-    myCloud.draw();
-    myTree.draw();
-  
-    
-  
-  
-    break;
-
-
-
-
- 
-
-
-  break;
-  
-
-
-
 }
-}
-
-
-
