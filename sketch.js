@@ -10,7 +10,8 @@ let mySound2;
 let myRainSound;
 let myMoonSound;
 let myStarSound;
-let test;
+let mySunSound;
+let rainVolume = 0.3;
 let star;
 let r;
 let g;
@@ -34,6 +35,8 @@ function preload() {
   myRainSound = loadSound('Rain_Audio');
   myMoonSound = loadSound('Moon_Sound');
   myStarSound = loadSound('Star_Sound');
+  mySunSound = loadSound('Sun_Sound');
+  
 }
 
 
@@ -105,13 +108,13 @@ function draw() {
  if (mouseIsClicked == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
   fill(255, 150, 0);
   ellipse(100, 90, 100, 100);
-//   if (!myMoonSound.isPlaying()){ 
-//     myMoonSound.play();
-//   }
-// } else { 
-//   myMoonSound.stop();
-// }
- }
+  if (!mySunSound.isPlaying()){ 
+    mySunSound.play();
+  }
+} else { 
+ mySunSound.stop();
+}
+ 
 
     push(); // saves the current drawing state 
     translate(100, 90); // moves the origin to the centre of the ellipse (sun) so the lines can be rotated around it 
@@ -122,7 +125,7 @@ function draw() {
       }
     pop(); // restores the previous drawing state
 
-
+   myRainSound.setVolume(rainVolume); // sets rain volume to 0.3 by calling the previously declared rainVolume function
   if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
     myRain.show(); 
     myRain.draw();
@@ -148,6 +151,7 @@ function draw() {
 
   case 2:
     mySound.stop();
+    mySunSound.stop();
     if (!mySound2.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
       mySound2.loop();
     }
@@ -203,7 +207,8 @@ function draw() {
     noStroke();
     fill(5, 71, 42);
     rect(0, 400, width, 200);
-  
+    
+    myRainSound.setVolume(rainVolume);
     if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
       myRain.show(); 
       myRain.draw();
