@@ -31,7 +31,7 @@ function preload() {
   mySound = loadSound('nature_ambient_daytime_state1');
   mySound2 = loadSound('nature_ambient_night_state2');
   myRainSound = loadSound('Rain_Audio');
-  myMoonSound = loadSound('Moon_Sound')
+  myMoonSound = loadSound('Moon_Sound');
  
 
 }
@@ -167,7 +167,14 @@ function draw() {
       fill(255, 255, 0);
       noStroke();
       ellipse(100, 90, 100, 100);
+      if (!myMoonSound.isPlaying()){ 
+        myMoonSound.play();
+      }
+    } else { 
+      myMoonSound.stop();
     }
+    
+    
    
     fill(255,205,165);
    
@@ -180,15 +187,15 @@ function draw() {
   
     if (mouseIsClicked == 1 && mouseX > 550 && mouseX < 650 && mouseY > 80 && mouseY < 120) {
       myRain.show(); 
-    myRain.draw();
-    myRain.update();
-    if (!myRainSound.isPlaying()){ 
-      myRainSound.loop();
+      myRain.draw();
+      myRain.update();
+      if (!myRainSound.isPlaying()){ 
+        myRainSound.loop();
+      }
+    } else { 
+      myRainSound.stop();
     }
-  } else { 
-    myRainSound.stop();
-  }
-    
+
   
     myCloud.draw();
     myTree.draw();
