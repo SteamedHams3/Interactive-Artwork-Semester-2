@@ -1,48 +1,59 @@
-let upperSky
-let lowerSky
-let myCloud = new whiteCloud(600, 100)
-let myTree = new responsiveTree();
-let myRain;
-let mouseIsClicked = 0;
-let mouseIsPressed = 0;
-let currentState = 0;
-let mySound;
-let mySound2;
-let myRainSound;
-let myMoonSound;
-let myStarSound;
-let mySunSound;
-let rainVolume = 0.3;
-let star;
-let r;
-let g;
-let b;
+let upperSky; // declares upperSky variable to store value of upperSky which will be used to creat the sky colour gradient
+let lowerSky; // declares lowerSky variable  to store value of lowerSky which will be used to create the sky colour gradient 
+let myCloud = new whiteCloud(600, 100); // calling a new instance of whiteCloud class
+let myTree = new responsiveTree(); // calling a new instance of responsiveTree class
+let myRain; // declares myRain variable that will be initialised in setup
+let mouseIsClicked = 0; // sets mouseIsClicked variable to 0 when the code is first run
+let mouseIsPressed = 0; // sets mouseIsPressed variable to 0 when the code is first run
+let currentState = 0;  // sets currentState variable to 0 when the code is first run
+let mySound; // declares mySound variable to store day state ambient sound file
+let mySound2; // declares mySound2 variable to store night state ambient sound file
+let myRainSound; // declares myRainSound variable to store rain sound file
+let myMoonSound; // declares myMoonSound variable to store moon sound file
+let myStarSound; // declares myStarSound variable to store star sound file
+let mySunSound; // declares mySunSound variable to store sun sound file
+let rainVolume = 0.3; // sets rainVolume to 0.3 out of 1 in order to make it quieter
+let star; // declares star variable that will be initialised in setup
+let r; // declares r value to store red value that will be initialised in setup
+let g; // declares g value to store green value that will be initialised in setup
+let b; // declares b value to store blue value that will be initialised in setup
 
-function keyPressed() {
-  if (key === "1") {
-    currentState = 1;
+function keyPressed() { // calls the p5 function keyPressed to test if the user is pressing a key, in this case either 1, 2 or 0
+  if (key === "1") { 
+    currentState = 1; // if statement that checks if the the user is pressing 1 and sets the currentState to 1 (day landscape)
   } else if(key === "2") {
-    currentState = 2;
+    currentState = 2; // else if that checks if the the user is pressing 2 and sets the currentState to 2 (night landscape)
   }
     else if(key === "0") {
-      currentState = 0;
+      currentState = 0; // else if that checks if the the user is pressing 0 and sets the currentState to 0 (menu screen)
   }
 }
 
-function preload() {
-  soundFormats('wav', 'mp3');
-  mySound = loadSound('nature_ambient_daytime_state1');
-  mySound2 = loadSound('nature_ambient_night_state2');
-  myRainSound = loadSound('Rain_Audio');
-  myMoonSound = loadSound('Moon_Sound');
-  myStarSound = loadSound('Star_Sound');
-  mySunSound = loadSound('Sun_Sound');
-  
+function mouseClicked() {  // calls the p5 function mouseClicked to test if the user is clicking their mouse
+  if (mouseIsClicked === 0) { 
+    mouseIsClicked = 1; // if statement that checks if mouseIsClicked is 0 and sets it to 1 when the user clicks the mouse anywhere on the canvas 
+  } else {
+   mouseIsClicked = 0; // else that sets the mouseIsClicked back to 0 when the user clicks the mouse anywhere on the canvas again 
+  }
 }
 
+function mousePressed() { // calls the p5 function mousePressed to test if the mouse is pressed  
+  mouseIsPressed = 1; // sets mouseIsPressed to 1 if the user presses the mouse
+}
 
+function mouseReleased() { // calls the p5 function mouseReleased to test if the mouse is released
+  mouseIsPressed = 0; // sets mouseIsPressed to 0 if the user releases the mouse 
+}
 
-
+function preload() { // calls p5 function preload to ensure that all soundfiles are loaded before setup is run, ensuring no load times when the page is ran
+  soundFormats('wav', 'mp3'); // sets accepted soundFormats to wav and mp3
+  mySound = loadSound('nature_ambient_daytime_state1'); // uses loadSound to load night ambient sound
+  mySound2 = loadSound('nature_ambient_night_state2'); // uses loadSound to load day ambient sound
+  myRainSound = loadSound('Rain_Audio'); // uses loadSound to load rain sound effect
+  myMoonSound = loadSound('Moon_Sound'); // uses loadSound to load moon sound effect
+  myStarSound = loadSound('Star_Sound'); // uses loadSound to load star sound effect
+  mySunSound = loadSound('Sun_Sound'); // uses loadSound to load sun sound effect
+}
 
 function setup() {
   createCanvas(800, 600);
@@ -54,12 +65,8 @@ function setup() {
   b = random(255);
 }
 
-
-
-
 function draw() {
  clear();
-
  background(220);
 
     
@@ -239,19 +246,3 @@ function draw() {
 
 
 
-function mouseClicked() {
-  if (mouseIsClicked === 0) {
-    mouseIsClicked = 1;
-  } else {
-   mouseIsClicked = 0;
-  }
-  
-}
-
-function mousePressed() {
-  mouseIsPressed = 1;
-}
-
-function mouseReleased() {
-  mouseIsPressed = 0;
-}
