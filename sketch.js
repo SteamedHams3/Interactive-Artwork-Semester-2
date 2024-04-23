@@ -4,6 +4,7 @@ let myCloud = new whiteCloud(600, 100)
 let myTree = new responsiveTree();
 let myRain;
 let mouseIsClicked = 0;
+let mouseIsPressed = 0;
 let currentState = 0;
 let mySound;
 let mySound2;
@@ -105,15 +106,13 @@ function draw() {
  fill(244, 128, 55);
  ellipse(100, 90, 100, 100);
 
- if (mouseIsClicked == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
+ if (mouseIsPressed == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
   fill(255, 150, 0);
   ellipse(100, 90, 100, 100);
-  if (!mySunSound.isPlaying()){ 
+  if(!mySunSound.isPlaying()) {
     mySunSound.play();
   }
-} else { 
- mySunSound.stop();
-}
+}1
  
 
     push(); // saves the current drawing state 
@@ -172,29 +171,24 @@ function draw() {
     star.draw();
 
     
-    if (mouseIsClicked == 1 && mouseX > 350 && mouseX < 450 && mouseY > 40 && mouseY < 140) {
+    if (mouseIsPressed == 1 && mouseX > 350 && mouseX < 450 && mouseY > 40 && mouseY < 140) {
      fill(r, g, b);
      star.draw();
      if (!myStarSound.isPlaying()){ 
-      myStarSound.loop();
+      myStarSound.play();
     }
-  } else { 
-    myStarSound.stop();
   }
-     
     
 
 
 
-    if (mouseIsClicked == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
+    if (mouseIsPressed == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
       fill(255, 255, 0);
       noStroke();
       ellipse(100, 90, 100, 100);
       if (!myMoonSound.isPlaying()){ 
         myMoonSound.play();
       }
-    } else { 
-      myMoonSound.stop();
     }
     
     
@@ -254,3 +248,10 @@ function mouseClicked() {
   console.log(mouseIsClicked);
 }
 
+function mousePressed() {
+  mouseIsPressed = 1;
+}
+
+function mouseReleased() {
+  mouseIsPressed = 0;
+}
