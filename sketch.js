@@ -74,6 +74,8 @@ function draw() {
 
 
       mySound2.stop();
+      myStarSound.stop();
+      myMoonSound.stop();
       if (!mySound.isPlaying()){ // if statement to play loop of ambient background sound for state one as the exclamation mark makes it negative and loops mySound 
         mySound.loop();
       }
@@ -99,6 +101,17 @@ function draw() {
  stroke(245, 187, 87);
  fill(244, 128, 55);
  ellipse(100, 90, 100, 100);
+
+ if (mouseIsClicked == 1 && mouseX > 50 && mouseX < 150 && mouseY > 40 && mouseY < 120) {
+  fill(255, 150, 0);
+  ellipse(100, 90, 100, 100);
+//   if (!myMoonSound.isPlaying()){ 
+//     myMoonSound.play();
+//   }
+// } else { 
+//   myMoonSound.stop();
+// }
+ }
 
     push(); // saves the current drawing state 
     translate(100, 90); // moves the origin to the centre of the ellipse (sun) so the lines can be rotated around it 
