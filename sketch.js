@@ -9,6 +9,7 @@ let mySound;
 let mySound2;
 let myRainSound;
 let myMoonSound;
+let myStarSound;
 let test;
 let star;
 let r;
@@ -32,8 +33,7 @@ function preload() {
   mySound2 = loadSound('nature_ambient_night_state2');
   myRainSound = loadSound('Rain_Audio');
   myMoonSound = loadSound('Moon_Sound');
- 
-
+  myStarSound = loadSound('Star_Sound');
 }
 
 
@@ -158,8 +158,14 @@ function draw() {
     if (mouseIsClicked == 1 && mouseX > 350 && mouseX < 450 && mouseY > 40 && mouseY < 140) {
      fill(r, g, b);
      star.draw();
-     console.log("if statement working");
+     if (!myStarSound.isPlaying()){ 
+      myStarSound.loop();
     }
+  } else { 
+    myStarSound.stop();
+  }
+     
+    
 
 
 
