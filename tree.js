@@ -1,4 +1,4 @@
-class responsiveTree
+class responsiveTree // creates responsiveTree class
 {
     constructor() {
         this.angle = 0; // initialises the angle property of the tree that will store the angle in degrees for future branches
