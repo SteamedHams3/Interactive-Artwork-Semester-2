@@ -245,7 +245,7 @@ function mouseClicked() {
   } else {
    mouseIsClicked = 0;
   }
-  console.log(mouseIsClicked);
+  
 }
 
 function mousePressed() {

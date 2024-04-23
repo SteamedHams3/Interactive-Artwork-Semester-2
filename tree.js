@@ -12,6 +12,10 @@ class responsiveTree
          if (angleDegrees > 90) { // if statement to limit the trees movement to 90 degrees so it cannot go further, keeping the tree from deforming.
             angleDegrees = 90; // sets a limit of 90 degrees to the tree movement
          }
+
+         if (angleDegrees < 15) { // if statement to limit the trees movement to 15 degrees so it cannot go further, keeping the tree from deforming when the mouse goes off the canvas to the left
+            angleDegrees = 15; // sets a limit of 90 degrees to the tree movement
+         }
          this.angle = angleDegrees; // stores the calculated angle in the angle property so it can be used for interactive branches later
          translate(width/2, 400); // translates the point of origin to the center of the canvas and a height of 200
          line(0, 0, 0, -30); // draws a straight line (the trunk of the tree) wth a height of 30 pixles from the translated origin 
